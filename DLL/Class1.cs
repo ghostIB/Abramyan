@@ -8,9 +8,14 @@ namespace Library
 {
     public static class SomeFunctions
     {
-        public static int Sum(int a, int b)
+        public static int Sum(Array A)
         {
-            return a + b;
+            int sum = 0;
+            foreach (int x in A)
+            {
+                sum += x;
+            }
+            return sum;
         }
         public static int ShowArray(Array arr)
         {
@@ -36,7 +41,7 @@ namespace Library
         }
         public static bool IsPrime(int a)
         {
-            for (int i = 0; i <= a / 2; i++)
+            for (int i = 2; i <= a / 2; i++)
             {
                 if (a % i == 0)
                 {
