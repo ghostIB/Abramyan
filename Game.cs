@@ -59,7 +59,7 @@ namespace ConsoleApp24
             Move(k[0],k[1]);
           }
           Console.Clear();
-          Console.WriteLine("Óðà âû äîøëè!!");
+          Console.WriteLine("Ð£Ñ€Ð° Ð²Ñ‹ Ð´Ð¾ÑˆÐ»Ð¸!!");
         }
         static int[] Input(){
           var key=Console.ReadKey().Key;
@@ -97,11 +97,17 @@ namespace ConsoleApp24
           }
         }
         static bool IsWall(int coordinateY,int coordinateX){
+          if (coordinateY>=height||coordinateX>=width){
+            return true;
+          }
           return zone[coordinateY,coordinateX]=="#";
         }
         static bool IsFinish(int dy,int dx){
           int PersY=getCharacterCoor()[0];
           int PersX=getCharacterCoor()[1];
+          if (PersY+dy<0 || PersX+dx<0 || PersY+dy>=height||PersX+dx>=width){
+            return false;
+          }
           return zone[PersY+dy,PersX+dx]=="F";
         }
     }
