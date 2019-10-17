@@ -160,7 +160,12 @@ namespace ConsoleApp
            i++;
            Generate();
            int[] k=Input();
+           if (!isEmpty(k[0],k[1])){
+             i++;
+           }
+           else{
            Move(k[0],k[1],i);
+           }
            int result=WhatResult();
            if (result==0 || result==1 || result==2){
              break;
