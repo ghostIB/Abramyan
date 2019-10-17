@@ -169,13 +169,13 @@ namespace ConsoleApp
         int result1=WhatResult();
         Console.Clear();
          if (result1==0){
-           Console.WriteLine("Ничья");
+           Console.WriteLine("РќРёС‡СЊСЏ");
          }
          else if (result1==1){
-           Console.WriteLine("Победил первый игрок");
+           Console.WriteLine("РџРѕР±РµРґРёР» РїРµСЂРІС‹Р№ РёРіСЂРѕРє");
          }
          else if (result1==2){
-           Console.WriteLine("Победил второй игрок");
+           Console.WriteLine("РџРѕР±РµРґРёР» РІС‚РѕСЂРѕР№ РёРіСЂРѕРє");
          }
       }
     }
