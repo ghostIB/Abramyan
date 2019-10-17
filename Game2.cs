@@ -169,7 +169,7 @@ namespace ConsoleApp
         int result1=WhatResult();
         Console.Clear();
          if (result1==0){
-           Console.WriteLine("Ничья");
+           Console.WriteLine("Наконец то достойный соперник");
          }
          else if (result1==1){
            Console.WriteLine("Победил первый игрок");
