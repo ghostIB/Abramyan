@@ -9,10 +9,9 @@ class MainClass {
       Console.WriteLine(buckshot.ConvertToDecimalBuckshot());
     }
     else{
-      int[] arr=ConvertToCommonBuckshot(Convert.ToDouble(input));
-      var fractoin=new CommonBuckshot(arr[0],arr[1]);
-      fractoin.CutBuckshot();
-      Console.WriteLine("({0},{1})",(int) fractoin.GetBuckshot()[0],fractoin.GetBuckshot()[1]);
+      var arr=ConvertToCommonBuckshot(Convert.ToDouble(input));
+      arr.CutBuckshot();
+      Console.WriteLine("({0},{1})",(int) arr.GetBuckshot()[0],arr.GetBuckshot()[1]);
     }
   }
   struct CommonBuckshot
@@ -24,6 +23,7 @@ class MainClass {
       this.numerator=numerator;
       this.denumerator=denumerator;
       this.rate=this.numerator/this.denumerator;
+      this.CutBuckshot();
     }
     public decimal ConvertToDecimalBuckshot(){
     return this.numerator/this.denumerator;
@@ -39,35 +39,55 @@ class MainClass {
           break;
         }
       }
+    }
+    public static CommonBuckshot operator +(CommonBuckshot first,CommonBuckshot second){
+      var ruteBuckshot=new CommonBuckshot(first.numerator*second.denumerator+second.numerator*first.denumerator,second.denumerator*first.denumerator);
+      ruteBuckshot.CutBuckshot();
+      return ruteBuckshot;
+    }
+    public static CommonBuckshot operator -(CommonBuckshot first,CommonBuckshot second){
+      var ruteBuckshot=new CommonBuckshot(first.numerator*second.denumerator-second.numerator*first.denumerator,second.denumerator*first.denumerator);
+      ruteBuckshot.CutBuckshot();
+      return ruteBuckshot;
+    }
+    public static CommonBuckshot operator /(CommonBuckshot first,CommonBuckshot second){
+      var ruteBuckshot=new CommonBuckshot(first.numerator/second.numerator,first.denumerator/second.denumerator);
+      ruteBuckshot.CutBuckshot();
+      return ruteBuckshot;
+    }
+    public static CommonBuckshot operator *(CommonBuckshot first,CommonBuckshot second){
+      var ruteBuckshot=new CommonBuckshot(first.numerator*second.numerator,first.denumerator*second.denumerator);
+      ruteBuckshot.CutBuckshot();
+      return ruteBuckshot;
+    }
   }
- }
   static string Input(){
     return Console.ReadLine();
   }
   static int TypeOfBuckshot(string buckshot){
     return buckshot.Contains("/")?1:0;
   }
-  static int[] ConvertToCommonBuckshot(double decimalBuckshot){
+  static CommonBuckshot ConvertToCommonBuckshot(double decimalBuckshot){
     string convert=Convert.ToString(decimalBuckshot);
     if (convert=="0"){
-      return new int[] {1,0};
+      return new CommonBuckshot(1,0);
     }
     else if (!convert.Contains(".") || convert.Substring(convert.IndexOf(".")+1)=="0"){
-      return new int[] {int.Parse(convert),1};
+      return new CommonBuckshot(int.Parse(convert),1);
     }
     int len=convert.Length-1;
     int prevPoint=int.Parse(convert.Substring(0,convert.IndexOf(".")));
     int lenAfterPoint=convert.Substring(convert.IndexOf(".")+1).Length;
     if (prevPoint!=0){
-      return new int[] {Convert.ToInt32(decimalBuckshot*Math.Pow(10,lenAfterPoint)),Convert.ToInt32(Math.Pow(10,lenAfterPoint))};
+      return new CommonBuckshot(Convert.ToInt32(decimalBuckshot*Math.Pow(10,lenAfterPoint)),Convert.ToInt32(Math.Pow(10,lenAfterPoint)));
     }
     else{
       for (int i=0;i<len+1;i++){
       if (convert.Substring(i,1)!="." && convert.Substring(i,1)!="0"){
-        return new int[] {int.Parse(convert.Substring(i)),Convert.ToInt32(Math.Pow(10,len-1))};
+        return new CommonBuckshot(int.Parse(convert.Substring(i)),Convert.ToInt32(Math.Pow(10,len-1)));
       }
     }
     }
-    return new int[] {1,0};
+    return new CommonBuckshot(1,0);
 }
 }
