@@ -5,13 +5,13 @@ class MainClass {
     string input=Input();
     if (TypeOfBuckshot(input)==1){
       string[] array=input.Split("/");
-      var buckshot=new CommonBuckshot(int.Parse(array[0]),int.Parse(array[1]));
+      CommonBuckshot buckshot=new CommonBuckshot(int.Parse(array[0]),int.Parse(array[1]));
       Console.WriteLine(buckshot.ConvertToDecimalBuckshot());
     }
     else{
-      var arr=ConvertToCommonBuckshot(Convert.ToDouble(input));
+      CommonBuckshot arr=ConvertToCommonBuckshot(Convert.ToDouble(input));
       arr.CutBuckshot();
-      Console.WriteLine("({0},{1})",(int) arr.GetBuckshot()[0],arr.GetBuckshot()[1]);
+      Console.WriteLine(arr.ToString());
     }
   }
   struct CommonBuckshot
@@ -51,7 +51,7 @@ class MainClass {
       return ruteBuckshot;
     }
     public static CommonBuckshot operator /(CommonBuckshot first,CommonBuckshot second){
-      var ruteBuckshot=new CommonBuckshot(first.numerator/second.numerator,first.denumerator/second.denumerator);
+      var ruteBuckshot=new CommonBuckshot(first.numerator*second.denumerator,first.denumerator*second.numerator);
       ruteBuckshot.CutBuckshot();
       return ruteBuckshot;
     }
@@ -59,6 +59,18 @@ class MainClass {
       var ruteBuckshot=new CommonBuckshot(first.numerator*second.numerator,first.denumerator*second.denumerator);
       ruteBuckshot.CutBuckshot();
       return ruteBuckshot;
+    }
+    public static implicit operator decimal(CommonBuckshot obj){
+      return obj.numerator/obj.denumerator;
+    }
+    public static implicit operator CommonBuckshot(int obj){
+      return new CommonBuckshot(obj,1);
+    }
+    public override string ToString(){
+      return String.Format("({0},{1})",this.numerator,this.denumerator);
+    }
+    public int GetIntPart(){
+      return (int) this.ConvertToDecimalBuckshot();
     }
   }
   static string Input(){
