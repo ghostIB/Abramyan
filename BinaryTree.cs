@@ -4,20 +4,19 @@ class MainClass {
   public static void Main (string[] args) {
     Node a=new Node(5);
     a.AddValue(4);
-    a.AddValue(7);
+    a.AddValue(3);
+    Console.WriteLine(a.left);
   }
   class Node{
     public int value{get;}
     public Node left;
     public Node right;
     public Node(int inputValue){
-      value=inputValue;
-      left=new Node(0);
-      right=new Node(0);
+      this.value=inputValue;
     }
     public void AddValue(int nodeValue){
       if (nodeValue<=value){
-        if (left.value==0){
+        if (left==null){
           left=new Node(nodeValue);
         }
         else{
@@ -25,7 +24,7 @@ class MainClass {
         }
       }
       else{
-        if (right.value==0){
+        if (right==null){
           right=new Node(nodeValue);
         }
         else{
