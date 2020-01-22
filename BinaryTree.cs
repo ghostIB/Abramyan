@@ -3,14 +3,16 @@ using System;
 class MainClass {
   public static void Main (string[] args) {
     Node a=new Node(5);
-    a.AddValue(4);
+    a.AddValue(8);
     a.AddValue(3);
-    Console.WriteLine(a.left);
+    a.AddValue(12);
+    Console.WriteLine(a.SearchNode(new Node(12)));
   }
   class Node{
     public int value{get;}
     public Node left;
     public Node right;
+    private bool resultRight,resultLeft;
     public Node(int inputValue){
       this.value=inputValue;
     }
@@ -31,6 +33,14 @@ class MainClass {
           right.AddValue(nodeValue);
         }
       }
+    }
+    public bool SearchNode(Node searchedNode){
+      if (searchedNode.value==value) return true;
+      else{
+        resultLeft = left==null?false:left.SearchNode(searchedNode);
+        resultRight = right==null?false:right.SearchNode(searchedNode);
+      }
+      return resultLeft||resultRight;
     }
     public bool CheckNodes(int checkedValue){
       return right.value==checkedValue||left.value==checkedValue;
